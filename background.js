@@ -4,7 +4,16 @@ var extensionState = {"cycling": false}
 function next_tab() {
   chrome.tabs.query({currentWindow: true}, function(tabs) {
     // Sort tabs according to their index in the window.
-    tabs.sort((a, b) => { return a.index < b.index; });
+    tabs.sort((a, b) => {
+      if (a.index < b.index) {
+        return 1
+      }
+      else {
+        return -1
+      }
+      // return a.index < b.index;
+    });
+    console.log(tabs)
     let activeIndex = tabs.findIndex((tab) => { return tab.active; });
     let lastTab = tabs.length - 1;
     let newIndex = -1;
